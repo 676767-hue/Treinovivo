@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Treino Vivo – seu personal trainer com IA</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="wrap top">
+<h1>Treino Vivo</h1>
+<div class="lv"><div class="badge" id="lvb">NV 1</div><div style="flex:1"><div id="lvt" style="font-weight:600">Iniciante</div><div class="bar"><i id="xpb"></i></div><div class="small" id="xpt"></div></div></div>
+</div></header>
+<nav role="tablist" id="tabs">
+<button role="tab" data-t="perfil" aria-selected="true">Perfil</button>
+<button role="tab" data-t="treino" aria-selected="false">Treino</button>
+<button role="tab" data-t="dieta" aria-selected="false">Alimentação</button>
+<button role="tab" data-t="alarmes" aria-selected="false">Alarmes</button>
+<button role="tab" data-t="nivel" aria-selected="false">Conquistas</button>
+</nav>
+<main>
+<section id="perfil">
+<div class="card"><h2>Conte sobre você</h2><p class="small">Quanto mais detalhes, mais certeiros ficam o treino e a dieta gerados pela IA.</p>
+<div class="grid">
+<label>Nome<input id="nome"></label>
+<label>Idade<input id="idade" type="number" min="12" max="95"></label>
+<label>Sexo<select id="sexo"><option>Feminino</option><option>Masculino</option><option>Prefiro não informar</option></select></label>
+<label>Peso (kg)<input id="peso" type="number" step="0.1"></label>
+<label>Altura (cm)<input id="altura" type="number"></label>
+<label>Experiência<select id="nivel"><option>Nunca treinei</option><option>Iniciante</option><option>Intermediário</option><option>Avançado</option></select></label>
+<label>Dias de treino por semana<select id="dias"><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option></select></label>
+<label>Minutos por treino<input id="duracao" type="number" value="60"></label>
+<label>Onde treina<select id="local"><option>Academia completa</option><option>Em casa, sem equipamento</option><option>Em casa, com halteres e elásticos</option><option>Ao ar livre / calistenia</option></select></label>
+<label>Refeições por dia<select id="nref"><option>3</option><option>4</option><option selected>5</option><option>6</option></select></label>
+<label>Padrão alimentar<select id="padrao"><option>Sem restrição</option><option>Vegetariano</option><option>Vegano</option><option>Low carb</option><option>Sem lactose</option><option>Sem glúten</option></select></label>
+</div>
+<label style="margin-top:12px">Objetivo (escreva do seu jeito)<textarea id="objetivo" placeholder="Ex.: perder 8 kg em 4 meses, ganhar massa nas pernas, correr 10 km, melhorar postura…"></textarea></label>
+<label style="margin-top:12px">Lesões, alergias ou alimentos que não come<textarea id="restr" placeholder="Ex.: dor no joelho direito, alergia a amendoim, não gosto de peixe…"></textarea></label>
+<div class="card" style="background:var(--bg)"><h3 style="font-size:22px">Chave de API da Anthropic (para a IA gerar os planos)</h3>
+<label>Sua chave<input id="apikey" type="password" placeholder="sk-ant-..." autocomplete="off"></label>
+<p class="small">A chave fica salva só no seu navegador e vai direto para a Anthropic. Crie uma em console.anthropic.com. Use o site apenas em aparelhos seus.</p></div>
+<p style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="p" id="goT">Gerar meu treino</button><button class="p" id="goD">Gerar minha dieta</button><span class="small">Os planos são sugestões gerais e não substituem médico, nutricionista ou educador físico.</span></p>
+<div id="perr" class="err"></div></div>
+</section>
+<section id="treino" hidden></section>
+<section id="dieta" hidden></section>
+<section id="alarmes" hidden>
+<div class="card"><h2>Novo lembrete</h2>
+<div class="grid"><label>Horário<input id="atime" type="time" value="18:00"></label><label>Mensagem<input id="atxt" value="Hora do treino!"></label></div>
+<p><button class="p" id="addA">Adicionar alarme</button> <button class="g" data-q="07:00|Beber água ao acordar">Água 07:00</button> <button class="g" data-q="12:30|Hora do almoço">Almoço 12:30</button> <button class="g" data-q="18:00|Hora do treino!">Treino 18:00</button></p>
+<p class="small" id="nstat"></p><p class="small">Os alarmes tocam enquanto esta página estiver aberta (pode ser em segundo plano). Para receber avisos do sistema, permita as notificações do navegador.</p></div>
+<div class="card" id="alist"></div>
+</section>
+<section id="nivel" hidden></section>
+</main>
+<div id="alarm" hidden role="alert"><span id="amsg"></span><button class="g" id="aok" style="color:#10202b;border-color:#10202b">Parar</button></div>
+<script src="app.js"></script>
+</body>
+</html>
